@@ -16,6 +16,13 @@ func TestMain(m *testing.M)  {
 	clearTables()
 }
 
+func TestUserWorkFlow(t *testing.T) {
+	t.Run("Add", testAddUser)
+	t.Run("Get", testGetUser)
+	t.Run("Del", testDeleteUser)
+	t.Run("Reget", testRegetUser)
+}
+
 func testAddUser(t *testing.T) {
 	err := AddUserCredential("alan", "123")
 	if err != nil {
@@ -34,5 +41,16 @@ func testDeleteUser(t *testing.T) {
 	err := DeleteUser("alan", "123")
 	if err != nil {
 		t.Errorf("Error of DeleteUser: %v", err)
+	}
+}
+
+func testRegetUser(t *testing.T) {
+	pwd, err := GetUserCredential("alan")
+	if err != nil {
+		t.Errorf("Error of RegetUser: %v", err)
+	}
+
+	if pwd != "" {
+		t.Errorf("Deleting user test failed")
 	}
 }
